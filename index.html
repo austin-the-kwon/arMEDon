@@ -437,7 +437,7 @@
 
     <div class="math-center">
       \[
-        P = P(z,t) = \tilde{P}(A,z,t) \qquad A = A(z,t) = \tilde{A}(p,z,t)
+        P = P(z,t) = \tilde{P}(A,z,t) \qquad A = A(z,t) = \tilde{A}(P,z,t)
       \]
     </div>
 
@@ -449,15 +449,20 @@
     <div class="math-center">
       \[
       \begin{aligned}
-        \tilde{P}(A,z,t) &= P_0(z) + \frac{4}{3}\left(k_1 e^{k2*r_0(z)+k_3}\right)
+        \tilde{P}(A,z,t) &= P_0(z) + \frac{4}{3}\left(k_1 e^{k_2r_0(z)+k_3}\right)
         \left(1-\sqrt{\frac{A_0(z)}{A(z,t)}}\right)\\
         &\Updownarrow\text{ invert}\\
-        \tilda{A}(P,z,t) &= \frac{A_0(z)}
-        {\left[\frac{3}{4}\left(k_1 e^{k2*r_0(z)+k_3}\right)
+        \tilde{A}(P,z,t) &= \frac{A_0(z)}
+        {\left[\frac{3}{4}\left(k_1 e^{k_2r_0(z)+k_3}\right)
         \left(P(z,t)-P_0(z)\right)\right]^2}
       \end{aligned}
       \]
     </div>
+
+    <p>
+      Where \(k_1, k_2, \)and \(k_3\) are constants that are indicative of the material properties
+      of the vessel walls: 
+    </p>
 
     <div class="math-center">
       \[
@@ -467,6 +472,8 @@
         +\nu\frac{\partial^2Q}{\partial z^2}
       \]
     </div>
+
+    
     
   </article>
   
