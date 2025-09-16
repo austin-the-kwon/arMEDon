@@ -471,13 +471,18 @@
       \begin{aligned}
         \frac{\partial}{\partial z}\int_{P_0(z)}^{P(z,t)}\frac{1}{\rho}\tilde{A}(p',z,t)dp'&=
         \frac{\tilde{A}(P(z,t),z,t)}{\rho}\frac{\partial P(z,t)}{\partial z}-
-        \frac{\tilde{A}(P_0(z,t),z,t)}{\rho}\frac{\partial P_0(z,t)}{\partial z}+
+        \frac{\tilde{A}(P_0(z),z,t)}{\rho}\frac{\partial P_0(z,t)}{\partial z}+
         \int_{P_0(z)}^{P(z,t)}\frac{1}{\rho}\frac{\partial \tilde{A}(p',z,t)}{\partial z}dp'\\
-        &Updownarrow \text{definition: }A = \tilde{A)(P(z,t),z,t)\\
+        &Updownarrow \text{definition: }A = \tilde{A}(P(z,t),z,t)\text{ and }\tilde{A}(P_0(z),z,t)=A_0(z)\\
         \frac{\partial}{\partial z}\int_{P_0(z)}^{P(z,t)}\frac{1}{\rho}\tilde{A}(p',z,t)dp'&=
         \frac{A}{\rho}\frac{\partial P}{\partial z}-
-        \frac{\tilde{A}(P_0(z,t),z,t)}{\rho}\frac{\partial P_0(z,t)}{\partial z}+
+        \frac{A_0(z)}{\rho}\frac{\partial P_0(z)}{\partial z}+
         \int_{P_0(z)}^{P(z,t)}\frac{1}{\rho}\frac{\partial \tilde{A}(p',z,t)}{\partial z}dp'\\
+        &Updownarrow \text{rearrange terms}\\
+        \frac{A}{\rho}\frac{\partial P}{\partial z}&=
+        \frac{\partial}{\partial z}\int_{P_0(z)}^{P(z,t)}\frac{1}{\rho}\tilde{A}(p',z,t)dp'
+        +\frac{A_0(z)}{\rho}\frac{\partial P_0(z)}{\partial z}-
+        \int_{P_0(z)}^{P(z,t)}\frac{1}{\rho}\frac{\partial \tilde{A}(p',z,t)}{\partial z}dp'
       \end{aligned}
       \]
     </div>
