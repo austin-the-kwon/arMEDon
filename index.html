@@ -449,12 +449,12 @@
     <div class="math-center">
       \[
       \begin{aligned}
-        \tilde{P}(A(z,t),z,t) &= P_0(z) + \frac{4}{3}\left(k_1 exp\left(k_2r_0(z)\right)+k_3\right)
+        \tilde{P}(A(z,t),z,t) &= P_0(z) + \frac{4}{3}\left(k_1 \text{exp}\left(k_2r_0(z)\right)+k_3\right)
         \left(1-\sqrt{\frac{A_0(z)}{A(z,t)}}\right)\\
         &\Updownarrow\text{ invert}\\
         \tilde{A}(P(z,t),z,t) &= \frac{A_0(z)}
         {\left[1-\frac{3\left(P(z,t)-P_0(z)\right)}
-        {4\left(k_1 exp\left(k_2r_0(z)\right)+k_3\right)}\right]^2}
+        {4\left(k_1 \text{exp}\left(k_2r_0(z)\right)+k_3\right)}\right]^2}
       \end{aligned}
       \]
     </div>
@@ -463,7 +463,8 @@
       Where \(k_1, k_2, \) and \(k_3\) are constants that are indicative of the material properties
       of the vessel walls. Now we can use Leibniz rule, which have 
       partial derivatives of cross-sectional area with respect to axial position evaluated 
-      at internal and external pressures (which we now have!).
+      at internal and external pressures (which we now have!), to expand the pressure derivative to
+      a friendlier form for quasi-linearizing the system of equations.
     </p>
 
     <div class="math-center">
@@ -479,7 +480,7 @@
         \frac{A_0(z)}{\rho}\frac{\partial P_0(z)}{\partial z}+
         \int_{P_0(z)}^{P(z,t)}\frac{1}{\rho}\frac{\partial \tilde{A}(p',z,t)}{\partial z}dp'\\
         &\Updownarrow \text{rearrange terms}\\
-        \frac{A(z,t)}{\rho}\frac{\partial P}{\partial z}&=
+        \frac{A(z,t)}{\rho}\frac{\partial P(z,t)}{\partial z}&=
         \frac{\partial}{\partial z}\int_{P_0(z)}^{P(z,t)}\frac{1}{\rho}\tilde{A}(p',z,t)dp'
         +\frac{A_0(z)}{\rho}\frac{\partial P_0(z)}{\partial z}-
         \int_{P_0(z)}^{P(z,t)}\frac{1}{\rho}\frac{\partial \tilde{A}(p',z,t)}{\partial z}dp'
@@ -489,10 +490,12 @@
 
     <div class="math-center">
       \[
-        \frac{\partial Q}{\partial t}
-        +\frac{\partial}{\partial z}\left[(1+\delta)\frac{Q^2}{A}\right]
-        +\frac{A}{\rho}\frac{\partial P}{\partial z}=Af+\frac{NQ}{A}
-        +\nu\frac{\partial^2Q}{\partial z^2}
+        \frac{\partial Q(z,t)}{\partial t}
+        +\frac{\partial}{\partial z}\left[(1+\delta)\frac{Q(z,t)^2}{A(z,t)}\right]
+        +\frac{\partial}{\partial z}\int_{P_0(z)}^{P(z,t)}\frac{1}{\rho}\tilde{A}(p',z,t)dp'
+        +\frac{A_0(z)}{\rho}\frac{\partial P_0(z)}{\partial z}-
+        \int_{P_0(z)}^{P(z,t)}\frac{1}{\rho}\frac{\partial \tilde{A}(p',z,t)}{\partial z}dp'=A(z,t)f(z,t)+\frac{NQ(z,t)}{A(z,t)}
+        +\nu\frac{\partial^2Q(z,t)}{\partial z^2}
       \]
     </div>
 
