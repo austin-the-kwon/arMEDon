@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  
+  <title>Yet Another S4 Blog</title>
+  <style>
+    :root {
+      --title-color: #bf5700; /* Change this to whatever color you want */
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      position: relative; /* Needed for absolute positioning of the menu */
+      display: flex; /* To align h1 and menu */
+      justify-content: center; /* Center the h1 initially */
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    header h1 {
+      color: var(--title-color);
+      font-family: Arial, sans-serif; /* Corrected font-family property */
+      text-align: center;
+      font-size: 2.5em;
+      margin: 0; /* Remove default margin to help with centering */
+      flex-grow: 1; /* Allows h1 to take up available space */
+    }
+
+    article {
+      max-width: 700px;
+      margin: 40px auto;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    a {
+    color: #00A9B7; /* Set your desired color */
+    text-decoration: underline; /* Optional: removes underline */
+    }
+
+    h2 {
+      font-size: 1.8em;
+    }
+
+    /* Ensure math equations are left-aligned */
+    .math-center {
+      text-align: left; /* Left-align the entire block */
+      display: block;    /* Ensure it's treated as a block-level element */
+      margin: 30px 0;
+    }
+
+    /* Additional specific targeting for MathJax rendered equations */
+    .mjx-chtml {
+      text-align: left !important; /* Force MathJax to align content left */
+    }
+
+    .mjx-math {
+      text-align: left !important; /* Ensure MathJax equations are left-aligned */
+    }
+
+    /* Hamburger Menu Styles */
+    .hamburger-menu {
+      position: absolute;
+      top: 0;
+      right: 20px; /* Adjust as needed for spacing from the right edge */
+      z-index: 1000; /* Ensure it's on top of other content */
+    }
+
+    .hamburger-icon {
+      width: 30px;
+      height: 25px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      cursor: pointer;
+      padding: 5px; /* Add some padding around the icon for easier clicking */
+    }
+
+    .hamburger-icon .bar {
+      width: 100%;
+      height: 3px;
+      background-color: #333; /* Color of the bars */
+      transition: all 0.3s ease-in-out;
+    }
+
+    .nav-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      background-color: #f4f4f4; /* Background for the dropdown menu */
+      border: 1px solid #ddd;
+      position: absolute;
+      top: 40px; /* Position below the icon */
+      right: 0;
+      width: 150px; /* Width of the dropdown menu */
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      display: none; /* Hidden by default */
+    }
+
+    .nav-menu.active {
+      display: block; /* Show when active */
+    }
+
+    .nav-menu li a {
+      display: block;
+      padding: 10px 15px;
+      text-decoration: none;
+      color: #333;
+      white-space: nowrap; /* Prevent text wrapping */
+    }
+
+    .nav-menu li a:hover {
+      background-color: #e2e2e2;
+    }
+
+    /* Animation for the hamburger icon when active */
+    .hamburger-icon.active .bar:nth-child(1) {
+      transform: translateY(11px) rotate(45deg);
+    }
+
+    .hamburger-icon.active .bar:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger-icon.active .bar:nth-child(3) {
+      transform: translateY(-11px) rotate(-45deg);
+    }
+
+    /* Media query for smaller screens if you want the menu to always be a hamburger */
+    @media (max-width: 768px) {
+      header h1 {
+        text-align: left; /* Adjust h1 position on smaller screens */
+        padding-left: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Yet Another S4 Blog</h1>
+    <div class="hamburger-menu">
+      <div class="hamburger-icon" id="hamburgerIcon">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="#introduction">Introduction</a></li>
+        <li><a href="#mathematical-background">Mathematical Background</a></li>
+        <li><a href="#code-implementation">Code Implementation</a></li>
+        <li><a href="#about-the-author">About the Author</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <article id="introduction">
+    <h2>Introduction</h2>
+    <p>The aim of this blog is to concisely aid those who wish to learn the basic mathematical background of 
+    and to learn how to implement the Structured State Space for Sequence Modeling (S4) architecture. This will be done
+    in two sections: (1) mathematical background and (2) code implementation in Python and Pytorch. The target audience
+    of this blog are those who are new to the S4 architecture and wish to learn how to implement it for research or other purposes.
+    Though other tutorials and blogs exist (like <a href="https://srush.github.io/annotated-s4/" target="_blank">The Annotated S4</a>
+    by A. Gu, K. Goel, and C. Ré) this blog will try to distinguish itself from the rest by making each step of the explanation as explicit as possible to 
+    make the technical content more readily digestible. </p>
+  </article>
+
+  <article id="mathematical-background">
+    <h2>Mathematical Background</h2>
+    <p>
+      The S4 architecture takes inspiration from the state space model 
+      which are a fundamental framework in modeling linear time invariant (LTI) systems, where a hidden state is updated using
+      data inputs, which is then used to evolve the system with linear operators.
+    </p>
+    <div class="math-center">
+      \[
+      \begin{aligned}
+        h_{k+1} &= Ah_k + Bx_k \\
+        \hat{x}_{k+1} &= Ch_{k+1} + Dx_k
+      \end{aligned}
+      \]
+    </div>
+
+    <p>
+      For applications in a time-series prediction task, a sequence of ground-truth state variables \([x_0,...,x_n]\) 
+      can be given as input to the S4 model to output a one-step shifted sequence of predicted state variables
+      \([\hat{x}_1,...,\hat{x}_{n+1}]\). The subscript indicates the time step index and the hat notation indicates
+      that the variable is a model prediction. 
+      The state variable at each time step has dimension d, and the hidden state has dimension h.
+    </p> 
+    <div class="math-center">
+      \[
+      \begin{aligned}
+        &x_t, \hat{x}_t \in \mathbb{R}^{d} \\
+        &h_t \in \mathbb{R}^{\symcal{h}}
+      \end{aligned}
+      \]
+    </div>
+    <p>
+      Setting the hidden state at timestep t = 0 shows
+    </p>
+    <div class="math-center">
+      \[
+      \begin{aligned}
+        h_1 &= Ah_0 + Bx_0 = Bx_0\\
+        \hat{x}_1 &= Ch_1 + Dx_0 = CBx_0 + Dx_0\\
+        &\\
+        h_2 &= Ah_1 + Bx_1 = ABx_0 + Bx_1\\
+        \hat{x}_2 &= Ch_2 + Dx_1 = CABx_0 + CBx_1 + Dx_1\\
+        &\\
+        h_3 &= Ah_2 + Bx_2 = A^2Bx_0 + ABx_1 + Bx_2\\
+        \hat{x}_3 &= Ch_3 + Dx_2 = CA^2Bx_0  +CABx_1 + CBx_2 + Dx_2\\
+        &\\
+        h_4 &= Ah_3 + Bx_3 = A^3Bx_0 + A^2Bx_1 + ABx_2 + Bx_3\\
+        \hat{x}_4 &= Ch_4 + Dx_3 = CA^3Bx_0 + CA^2Bx_1  +CABx_2 + CBx_3 + Dx_3\\
+        &\\
+      &\text{and so on...}
+      \end{aligned}
+      \]
+    </div>
+    <p>From this explicit iteration, it can be shown that the predicted output (\(\hat{x}_{n+1}\)) follows 
+    a formula:</p>
+    <div class="math-center">
+      \[
+      \hat{x}_{n+1} = \sum_{j=0}^{n}CA^{n-j}Bx_j + Dx_n
+      \]
+    </div>
+    <p>
+      A key technical contribution of the S4 paper by Gu et. al, is setting the A matrix 
+      as a HiPPO matrix and characterizing this matrix as a diagonal plus low rank (NPLR) 
+      matrix (under unitary transformation) to simplify calculations for efficient computation.
+      A normal matrix can be expressed as \(V\Lambda V^*\) where V is a unitary matrix, \(VV^*=V^*V=I\), 
+      and \(\Lambda\) is a diagonal matrix. 
+      To obtain a low rank matrix, one can take an outer product of two low rank matrices.
+      Upon a unitary transformation (multiplication by a unitary matrix and its conjugate transpose on either side), 
+      an NPLR matrix can be converted to a diagonal plus low-rank (DPLR) matrix.
+    </p>
+    <div class="math-center">
+      \[
+      \begin{aligned}
+        A &= V\Lambda V^* - PQ^*\\
+        V^*AV &= V^*(V\Lambda V^* - PQ^*)V=V^*V\Lambda V^*V - V^*PQ^*V = \Lambda - V^*PQ^*V\\
+        &\text{let }\tilde{P} = V^*P\text{ and }\tilde{Q} = V^*Q\\
+        A &=\Lambda - \tilde{P}\tilde{Q}^*
+      \end{aligned}
+      \]
+    </div>
+    Since multiplcation by a unitary matrix does not affect rank, \(\tilde{P}\) and  \(\tilde{Q}\)
+    have the same rank as P and Q.
+
+    <p>Dimensions for the parameters are as follows:</p>
+    <div class="math-center">
+      \[
+      \begin{aligned}
+        &\Lambda \in \mathbb{C}^{h\times h}\text{ (diagonal matrix)} \\
+        &P, Q \in \mathbb{C}^{h \times r} \\
+        &B, C \in \mathbb{C}^{h \times d}
+      \end{aligned}
+      \]
+    </div>
+
+    <p> Although many discretization methods exist, the Tustin discretization will be utilized for demonstration purposes. See below
+    for the pseudo code for obtaining the convolution kernels (\(\bar{K}\)). </p>
+    <div class="math-center">
+      \[
+      \begin{aligned}
+        &\hat{A} = \Lambda - \hat{P}\hat{Q}^* \in \mathbb{C}^{h\times h} \\
+        &\bar{A} = \left( I_{h\times h} - \frac{\Delta}{2}\hat{A}\right)^{\dagger}\left( I + \frac{\Delta}{2}\hat{A}\right) \in \mathbb{C}^{h\times h} \\
+        &\tilde{C} = \left( I_{h\times h} - \bar{A}^\ell \right)^*\hat{C} \in \mathbb{C}^{h\times d} \\
+        &\text{for w = 0, 1, 2, ..., \(\ell\) - 1:}\\
+        &\;\;\;\;z[w] = \text{exp}\left(-2\pi i \frac{w}{\ell}\right) \in \mathbb{C},\;\;\left(z\in\mathbb{C}^{\ell \times 1}\right) \\
+        &\;\;\;\;R[w] = \left( \frac{2}{\Delta}\frac{1-z[w]}{1+z[w]}I_{h\times h}-\Lambda \right)^{-1} \in \mathbb{C}^{h\times h}
+          ,\;\;\left(R\in\mathbb{C}^{\ell \times h \times h}\right)  \\
+        &\;\;\;\;\text{if r = 1}:\\
+        &\;\;\;\;\;\;\;\;\mathcal{K}[w] = \frac{2}{1+z[w]}\tilde{C}^*R[w]\left(I_{h\times h}-\frac{1}{1+\hat{Q}^*R[w]\hat{P}}\hat{P}\hat{Q}^*R[w]\right)\hat{B}\in \mathbb{C}^{d\times d},\;\;\left(\mathcal{K}\in\mathbb{C}^{\ell\times d\times d}\right) \\
+        &\;\;\;\;\text{else if r > 1}:\\
+        &\;\;\;\;\;\;\;\;\mathcal{K}[w] = \frac{2}{1+z[w]}\tilde{C}^*R[w]\left[I_{h\times h} - \hat{P}\left(I_{r\times r}+\hat{Q}^*R[w]\hat{P}\right)^{\dagger}\hat{Q}^*R[w]\right]\hat{B}  
+          \in \mathbb{C}^{d\times d},\;\;\left(\mathcal{K}\in\mathbb{C}^{\ell\times d\times d}\right) \\
+        &\bar{K} = \text{real}\left(\text{iFFT}\left(\mathcal{K},\text{ axis = 0}\right)\right) \in \mathbb{R}^{\ell\times d \times d}
+      \end{aligned} 
+      \]
+    </div>
+
+  <p>Couple notes:</p>
+  <ol>
+  <li>\(X[w]\) is the w'th quantity of \(X\)</li>
+  <li>\(X^\dagger\) is the Moore-Penrose pseudoinverse of \(X\).
+  The pseudoinverse is used when inverting non-diagonal matrices for stability.</li>
+  <li>Identity matrix dimensions are shown to avoid confusion.</li>
+  </ol>
+
+  </article>
+
+  <article id="code-implementation">
+    <h2>Code Implementation</h2>
+    <p>Now that the math and logic have been established, a code implementation walkthrough will incorporate the above content
+    to make a working S4 model.</p>
+    <p>First, we import packages and initialize variables and parameters when \(A = \Lambda - PQ^*\) 
+      for a given set of \(\Lambda,P,Q\) matrices.</p>
+    <pre><code class="language-python">
+      # import useful packages
+      import numpy as np
+      import time
+      
+      import torch
+      import torch.nn as nn
+      
+      import warnings
+      warnings.filterwarnings("ignore", category=DeprecationWarning)
+
+      # initialize dimensions and other scalar variables
+      L = 3 # seq length
+      h = 10 # hidden state dim
+      d = 2 # input dim
+      step = 0.01 # step size
+      r = 2 # Q/P rank
+
+      # initialize matrices
+      Lambda = np.diag(np.random.rand(h))
+      P = np.random.rand(h,r)
+      Q = np.random.rand(h,r)
+      A = (Lambda - P @ Q.conj().T)
+      
+      B = np.random.rand(h,d)
+      C = np.random.rand(h,d)
+      Ih = np.eye(h)
+      Ir = np.eye(r)
+    </code></pre>
+  <p>Second, the convolution kernel \([CA^nB + ... + CAB + CB;...;CAB + CB; CB]\) will be determined
+  using the S4 and recursive methods to show they yield the same result.</p>
+  <pre><code class="language-python">
+    # determine convolution kernel using S4 method
+    start_time = time.time()
+    Abar = np.linalg.pinv(Ih - step/2*A) @ (Ih + step/2*A)
+    Ctilde = (Ih - np.linalg.matrix_power(Abar,L)).conj().T @ C
+    
+    for w in range(L):
+      z = np.exp(-2j*np.pi*(w)/(L))
+      R = np.diag(1/(2/step*(1-z)/(1+z)*np.ones_like(np.diag(Lambda)) - np.diag(Lambda)))
+      K0 = (2/(1+z) * ( Ctilde.conj().T @ R @ (Ih - P @ np.linalg.pinv(Ir + Q.conj().T  @ R @ P) @ Q.conj().T  @ R) @ B ))[None,:,:]
+      if w == 0:
+          K = K0
+      else:
+        K = np.concatenate([K, K0], axis=0)
+    K_conv = np.fft.ifft(K, axis=0).real
+    print("kernel computation time (S4):",time.time() - start_time, "seconds")
+
+    
+    # determine convolution kernel using recursive method
+    start_time = time.time()
+    K_rec = np.zeros((L,1))
+    if d > 1:
+      K_rec = np.zeros((L,d,d))
+
+    Ab = np.linalg.pinv(Ih - step/2 * A) @ (Ih + step/2 * A)
+    Bb = step * np.linalg.pinv(Ih - step/2 * A) @ B
+    for i in range(L):
+      K_rec[i] = (C.conj().T @ np.linalg.matrix_power(Ab, i) @ Bb).real
+    print("kernel computation time (recursive):",time.time() - start_time, "seconds")
+    </code></pre>
+    <p>To test whether the two different methods yielded the same convolution kernel, 
+    visual and numerical tests can be run.</p>
+    <pre><code class="language-python">
+    # similarity test between S4 and recursive kernels
+    print("S4 kernel:")
+    print(K_conv)
+    print("\nrecursive kernel:")
+    print(K_rec)
+    if np.allclose(K_conv, K_rec, atol = 1e-4):
+      print("\nS4 and recursive kernels are similar to each other within the set tolerance")
+    </code></pre>
+    <p>The reader is encouraged to test and play around with the code, but to clear any doubts,
+    the output of the similarity test is shown below:</p>
+    <div style="text-align: center;">
+      <img src="Screenshot (26).png" alt="ODEN Logo" height="400">
+    </div>
+
+    <p>On a separate occasion, if the user needs a specific A matrix to be applied (ie. A is initialized rather than \(\Lambda, P, Q\),
+    the \(\Lambda, P, Q\) matrices can be determined using the following method:</p>
+    <div class="math-center">
+      \[
+      \begin{aligned}
+        &A = I - (I-A)\\
+        &U\Sigma V^* = I-A \\
+        &A = I - U\Sigma V^*\\
+        &\text{let }P=U\Sigma, \Lambda=I\text{, and }Q = V\\
+        &A = \Lambda - PQ^*
+      \end{aligned}
+      \]
+    </div>
+    <p>Since SVD always exists, this formula can be followed to determine the matrices \(\Lambda,P,Q\)
+    (although some rank-deficiencies and other numerical issues may arise).</p>
+  </article>
+
+  <article id="about-the-author">
+    <h2> About the Author</h2>
+    <p> 
+      My name is Austin Kwon. I am a Computational Science, Engineering, and Mathematics PhD student at 
+      the <a href = "https://oden.utexas.edu/" target = "_black">Oden Institute</a> at the University of Texas at Austin. 
+      I am advised by Professor 
+      <a href = "https://dellmed.utexas.edu/directory/charles-taylor" target = "_black">Charles A. Taylor</a>, and  
+      I received my BS in Aerospace and Mechanical Engineering at Rensselaer Polytechnic Institute in 2024.
+      Any questions can be directed at austin.kwon@utexas.edu.
+    </p>
+  </article>
+
+<div style="text-align: center;">
+  <img src="oden_logo.png" alt="ODEN Logo" height="100">
+</div>
+
+<script>
+  const hamburgerIcon = document.getElementById('hamburgerIcon');
+  const navMenu = document.getElementById('navMenu');
+
+  hamburgerIcon.addEventListener('click', () => {
+    hamburgerIcon.classList.toggle('active');
+    navMenu.classList.toggle('active');
+  });
+
+  // Close the menu if clicked outside
+  document.addEventListener('click', (event) => {
+    if (!hamburgerIcon.contains(event.target) && !navMenu.contains(event.target)) {
+      hamburgerIcon.classList.remove('active');
+      navMenu.classList.remove('active');
+    }
+  });
+
+  // Close the menu when a link is clicked
+  navMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburgerIcon.classList.remove('active');
+      navMenu.classList.remove('active');
+    });
+  });
+</script>
+</body>
+</html>
