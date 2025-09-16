@@ -11,7 +11,7 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   <script>hljs.highlightAll();</script>
   
-  <title>Yet Another S4 Blog</title>
+  <title>My Work is in the Heart</title>
   <style>
     :root {
       --title-color: #bf5700; /* Change this to whatever color you want */
@@ -151,7 +151,7 @@
 </head>
 <body>
   <header>
-    <h1>Yet Another S4 Blog</h1>
+    <h1>My Work is in the Heart</h1>
     <div class="hamburger-menu">
       <div class="hamburger-icon" id="hamburgerIcon">
         <div class="bar"></div>
@@ -169,21 +169,19 @@
 
   <article id="introduction">
     <h2>Introduction</h2>
-    <p>The aim of this blog is to concisely aid those who wish to learn the basic mathematical background of 
-    and to learn how to implement the Structured State Space for Sequence Modeling (S4) architecture. This will be done
-    in two sections: (1) mathematical background and (2) code implementation in Python and Pytorch. The target audience
-    of this blog are those who are new to the S4 architecture and wish to learn how to implement it for research or other purposes.
-    Though other tutorials and blogs exist (like <a href="https://srush.github.io/annotated-s4/" target="_blank">The Annotated S4</a>
-    by A. Gu, K. Goel, and C. Ré) this blog will try to distinguish itself from the rest by making each step of the explanation as explicit as possible to 
-    make the technical content more readily digestible. </p>
+    <p>The aim of this blog is to outline the mathematics and techniques used to create a model of the heart. </p>
   </article>
 
-  <article id="mathematical-background">
-    <h2>Mathematical Background</h2>
+  <article id="Synthetic Vascular Tree">
+    <h2>Synthetic Vascular Tree</h2>
     <p>
-      The S4 architecture takes inspiration from the state space model 
-      which are a fundamental framework in modeling linear time invariant (LTI) systems, where a hidden state is updated using
-      data inputs, which is then used to evolve the system with linear operators.
+      As a result of the coarseness of modern medical imaging machines, 
+      image-to-model techniques are suited to segment the lumen of large coronary arteries 
+      and other medium-sized marginal vessels, whether manually or automatically. However, with an in-plane resolution
+      of roughly 500 microns, vessels with smaller diameters, such as pre-arterioles and arterioles with 500-100 micron and  
+      100-50 micron diameters respectively, synthetic vascular trees need to be generated to create domains to run
+      hemodynamic simulations and bridge the gap between 3D flow in the large coronary arteries and porous medium 
+      perfusion in the myocardium.
     </p>
     <div class="math-center">
       \[
