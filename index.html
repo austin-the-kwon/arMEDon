@@ -406,19 +406,70 @@
   <article id="1D Wave Propagation: Quasi-Linearization of Strong Form">
     <h2>1D Wave Propagation: Quasi-Linearization of Strong Form</h2>
     <p>
-      Most of the work in this section will be in the momentum equation. The strong form of the
-      system of equations will be turned to a quasi-linear form to ... We will start by 
-      using the Leibniz rule to expand the pressure derivative term:
+      Most of the work in this section will be done in the momentum equation. The strong form of the
+      system of equations will be turned to a quasi-linear form to ...
     </p>
 
     <div class="math-center">
       \[
-        frac{\partial Q}{\partial t}
+        \frac{\partial Q}{\partial t}
         +\frac{\partial}{\partial z}\left[(1+\delta)\frac{Q^2}{A}\right]
         +\frac{A}{\rho}\frac{\partial P}{\partial z}=Af+\frac{NQ}{A}
         +\nu\frac{\partial^2Q}{\partial z^2}
       \]
     </div>
+
+    <p>
+      Before proceeding, we need to set some definitions. Normally, pressure 
+      and cross-sectional area are functions of z and t.
+    </p>
+    
+    <div class="math-center">
+      \[
+        P = P(z,t) \qquad A = A(z,t)
+      \]
+    </div>
+    
+    <p>
+      But now we will introduce "pseudo-equations" of pressure and cross-sectional area that are
+      additionally dependent on cross-sectional area and pressure respectively:
+    </p>
+
+    <div class="math-center">
+      \[
+        P = P(z,t) = \tilde{P}(A,z,t) \qquad A = A(z,t) = \tilde{A}(p,z,t)
+      \]
+    </div>
+
+    <p>
+      These definitions are established to expand the pressure derivative term, with the
+      pressure-area relation from Olufsen, which we can invert to get the relation in both directions.
+    </p>
+
+    <div class="math-center">
+      \[
+      \begin{aligned}
+        \tilde{P}(A,z,t) &= P_0(z) + \frac{4}{3}\left(k_1 e^{k2*r_0(z)+k_3}\right)
+        \left(1-\sqrt{\frac{A_0(z)}{A(z,t)}}\right)\\
+        &\Updownarrow\text{ invert}\\
+        \tilda{A}(P,z,t) &= \frac{A_0(z)}
+        {\left[\frac{3}{4}\left(k_1 e^{k2*r_0(z)+k_3\right)
+        \left(P(z,t)-P_0(z)\right)\right]^2}
+      \end{aligned}
+      \]
+    </div>
+
+    <p></p>
+
+    <div class="math-center">
+      \[
+        \frac{\partial Q}{\partial t}
+        +\frac{\partial}{\partial z}\left[(1+\delta)\frac{Q^2}{A}\right]
+        +\frac{A}{\rho}\frac{\partial P}{\partial z}=Af+\frac{NQ}{A}
+        +\nu\frac{\partial^2Q}{\partial z^2}
+      \]
+    </div>
+    
   </article>
   
   <script>
