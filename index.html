@@ -187,7 +187,7 @@
       \[
       \begin{aligned}
         r_0^\gamma &= r_1^\gamma + r_2^\gamma \\
-        Q_0 = Q_1 + Q_2
+        Q_0 &= Q_1 + Q_2
       \end{aligned}
       \]
     </div>
@@ -199,96 +199,20 @@
       Arteriole vessels range in diameter between 100 and 50 microns. In concordance with average values of
       vessel segment length \(\approx\) 0.3-0.5 cm, velocity \(\approx\) 1 cm/s, and viscosity \(\approx\) 3.6 mPa\(\cdot\)s 
       (disregarding shear thinning), a crude approximation of the average Reynolds number in an arteriole segment is
-      \(\approx\) 0.29 which is well within the laminar regime. With that established, the following sections will derive the 
+      \(\approx\) 0.29 which is well within the laminar regime. With that established, the remainder of this section will derive the 
       weak, quasi-linear form of the 1D wave propagation equation, starting with the equations of mass conservation and 
       Navier-Stokes momentum equation in cylindrical coordinates.
     </p>
+
+    <p>
+      Starting with mass conservation,
+    </p>
     <div class="math-center">
       \[
-      \begin{aligned}
-        r_0^\gamma &= r_1^\gamma + r_2^\gamma \\
-        Q_0 &= Q_1 + Q_2
-      \end{aligned}
+      \frac{\partial \rho}{\partial z}+\nablda\cdot\rho z = 0
       \]
     </div>
   </article>
-    <p>
-      For applications in a time-series prediction task, a sequence of ground-truth state variables \([x_0,...,x_n]\) 
-      can be given as input to the S4 model to output a one-step shifted sequence of predicted state variables
-      \([\hat{x}_1,...,\hat{x}_{n+1}]\). The subscript indicates the time step index and the hat notation indicates
-      that the variable is a model prediction. 
-      The state variable at each time step has dimension d, and the hidden state has dimension h.
-    </p> 
-    <div class="math-center">
-      \[
-      \begin{aligned}
-        &x_t, \hat{x}_t \in \mathbb{R}^{d} \\
-        &h_t \in \mathbb{R}^{\symcal{h}}
-      \end{aligned}
-      \]
-    </div>
-    <p>
-      Setting the hidden state at timestep t = 0 shows
-    </p>
-    <div class="math-center">
-      \[
-      \begin{aligned}
-        h_1 &= Ah_0 + Bx_0 = Bx_0\\
-        \hat{x}_1 &= Ch_1 + Dx_0 = CBx_0 + Dx_0\\
-        &\\
-        h_2 &= Ah_1 + Bx_1 = ABx_0 + Bx_1\\
-        \hat{x}_2 &= Ch_2 + Dx_1 = CABx_0 + CBx_1 + Dx_1\\
-        &\\
-        h_3 &= Ah_2 + Bx_2 = A^2Bx_0 + ABx_1 + Bx_2\\
-        \hat{x}_3 &= Ch_3 + Dx_2 = CA^2Bx_0  +CABx_1 + CBx_2 + Dx_2\\
-        &\\
-        h_4 &= Ah_3 + Bx_3 = A^3Bx_0 + A^2Bx_1 + ABx_2 + Bx_3\\
-        \hat{x}_4 &= Ch_4 + Dx_3 = CA^3Bx_0 + CA^2Bx_1  +CABx_2 + CBx_3 + Dx_3\\
-        &\\
-      &\text{and so on...}
-      \end{aligned}
-      \]
-    </div>
-    <p>From this explicit iteration, it can be shown that the predicted output (\(\hat{x}_{n+1}\)) follows 
-    a formula:</p>
-    <div class="math-center">
-      \[
-      \hat{x}_{n+1} = \sum_{j=0}^{n}CA^{n-j}Bx_j + Dx_n
-      \]
-    </div>
-    <p>
-      A key technical contribution of the S4 paper by Gu et. al, is setting the A matrix 
-      as a HiPPO matrix and characterizing this matrix as a diagonal plus low rank (NPLR) 
-      matrix (under unitary transformation) to simplify calculations for efficient computation.
-      A normal matrix can be expressed as \(V\Lambda V^*\) where V is a unitary matrix, \(VV^*=V^*V=I\), 
-      and \(\Lambda\) is a diagonal matrix. 
-      To obtain a low rank matrix, one can take an outer product of two low rank matrices.
-      Upon a unitary transformation (multiplication by a unitary matrix and its conjugate transpose on either side), 
-      an NPLR matrix can be converted to a diagonal plus low-rank (DPLR) matrix.
-    </p>
-    <div class="math-center">
-      \[
-      \begin{aligned}
-        A &= V\Lambda V^* - PQ^*\\
-        V^*AV &= V^*(V\Lambda V^* - PQ^*)V=V^*V\Lambda V^*V - V^*PQ^*V = \Lambda - V^*PQ^*V\\
-        &\text{let }\tilde{P} = V^*P\text{ and }\tilde{Q} = V^*Q\\
-        A &=\Lambda - \tilde{P}\tilde{Q}^*
-      \end{aligned}
-      \]
-    </div>
-    Since multiplcation by a unitary matrix does not affect rank, \(\tilde{P}\) and  \(\tilde{Q}\)
-    have the same rank as P and Q.
-
-    <p>Dimensions for the parameters are as follows:</p>
-    <div class="math-center">
-      \[
-      \begin{aligned}
-        &\Lambda \in \mathbb{C}^{h\times h}\text{ (diagonal matrix)} \\
-        &P, Q \in \mathbb{C}^{h \times r} \\
-        &B, C \in \mathbb{C}^{h \times d}
-      \end{aligned}
-      \]
-
 <script>
   const hamburgerIcon = document.getElementById('hamburgerIcon');
   const navMenu = document.getElementById('navMenu');
