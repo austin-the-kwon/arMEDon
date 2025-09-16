@@ -186,12 +186,12 @@
     <div class="math-center">
       \[
       \begin{aligned}
-        h_{k+1} &= Ah_k + Bx_k \\
-        \hat{x}_{k+1} &= Ch_{k+1} + Dx_k
+        r_0^\gamma &= r_1^\gamma + r_2^\gamma \\
+        Q_0 = Q_1 + Q_2
       \end{aligned}
       \]
     </div>
-
+  </article>
     <p>
       For applications in a time-series prediction task, a sequence of ground-truth state variables \([x_0,...,x_n]\) 
       can be given as input to the S4 model to output a one-step shifted sequence of predicted state variables
@@ -268,37 +268,6 @@
         &B, C \in \mathbb{C}^{h \times d}
       \end{aligned}
       \]
-    </div>
-
-    <p> Although many discretization methods exist, the Tustin discretization will be utilized for demonstration purposes. See below
-    for the pseudo code for obtaining the convolution kernels (\(\bar{K}\)). </p>
-    <div class="math-center">
-      \[
-      \begin{aligned}
-        &\hat{A} = \Lambda - \hat{P}\hat{Q}^* \in \mathbb{C}^{h\times h} \\
-        &\bar{A} = \left( I_{h\times h} - \frac{\Delta}{2}\hat{A}\right)^{\dagger}\left( I + \frac{\Delta}{2}\hat{A}\right) \in \mathbb{C}^{h\times h} \\
-        &\tilde{C} = \left( I_{h\times h} - \bar{A}^\ell \right)^*\hat{C} \in \mathbb{C}^{h\times d} \\
-        &\text{for w = 0, 1, 2, ..., \(\ell\) - 1:}\\
-        &\;\;\;\;z[w] = \text{exp}\left(-2\pi i \frac{w}{\ell}\right) \in \mathbb{C},\;\;\left(z\in\mathbb{C}^{\ell \times 1}\right) \\
-        &\;\;\;\;R[w] = \left( \frac{2}{\Delta}\frac{1-z[w]}{1+z[w]}I_{h\times h}-\Lambda \right)^{-1} \in \mathbb{C}^{h\times h}
-          ,\;\;\left(R\in\mathbb{C}^{\ell \times h \times h}\right)  \\
-        &\;\;\;\;\text{if r = 1}:\\
-        &\;\;\;\;\;\;\;\;\mathcal{K}[w] = \frac{2}{1+z[w]}\tilde{C}^*R[w]\left(I_{h\times h}-\frac{1}{1+\hat{Q}^*R[w]\hat{P}}\hat{P}\hat{Q}^*R[w]\right)\hat{B}\in \mathbb{C}^{d\times d},\;\;\left(\mathcal{K}\in\mathbb{C}^{\ell\times d\times d}\right) \\
-        &\;\;\;\;\text{else if r > 1}:\\
-        &\;\;\;\;\;\;\;\;\mathcal{K}[w] = \frac{2}{1+z[w]}\tilde{C}^*R[w]\left[I_{h\times h} - \hat{P}\left(I_{r\times r}+\hat{Q}^*R[w]\hat{P}\right)^{\dagger}\hat{Q}^*R[w]\right]\hat{B}  
-          \in \mathbb{C}^{d\times d},\;\;\left(\mathcal{K}\in\mathbb{C}^{\ell\times d\times d}\right) \\
-        &\bar{K} = \text{real}\left(\text{iFFT}\left(\mathcal{K},\text{ axis = 0}\right)\right) \in \mathbb{R}^{\ell\times d \times d}
-      \end{aligned} 
-      \]
-    </div>
-
-  <p>Couple notes:</p>
-  <ol>
-  <li>\(X[w]\) is the w'th quantity of \(X\)</li>
-  <li>\(X^\dagger\) is the Moore-Penrose pseudoinverse of \(X\).
-  The pseudoinverse is used when inverting non-diagonal matrices for stability.</li>
-  <li>Identity matrix dimensions are shown to avoid confusion.</li>
-  </ol>
 
 <script>
   const hamburgerIcon = document.getElementById('hamburgerIcon');
