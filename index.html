@@ -218,13 +218,93 @@
     <p>
       Using the divergence identity: \( \nabla\cdot \rho \vec{u}=
       \rho\left(\nabla\cdot\vec{u}\right)+\vec{u}\cdot\nabla\rho\), we substitute the divergence term
-      to arrive at
+      to arrive at:
     </p>
     
     <div class="math-center">
       \[
       \frac{\partial \rho}{\partial z}+ 
       \rho\left(\nabla\cdot\vec{u}\right)+\vec{u}\cdot\nabla\rho = 0
+      \]
+    </div>
+
+    <p>
+    Assuming blood is a homogeneous fluid, with uniform density throughout the fluid domain,
+    we set the gradient of density to be zero (\(\nabla \rho = 0\)).
+    </p>
+
+    <div class="math-center">
+      \[
+      \frac{\partial \rho}{\partial z}+ 
+      \rho\left(\nabla\cdot\vec{u}\right) = 0
+      \]
+    </div>
+
+    <p>
+      Substituting for the divergence of velocity with the following identity,
+      \(\nabla\cdot\vec{u}=\frac{\partial u_z}{\partial z}
+      +\frac{1}{r}\frac{\partial(ru_r)}{\partial z}+
+      \frac{1}{r}\frac{\partial u_\theta}{\partial \theta}\), we get the following:
+    </p>
+
+    <div class="math-center">
+      \[
+      \frac{\partial \rho}{\partial z}+ 
+      \rho\left(\frac{\partial u_z}{\partial z}
+      +\frac{1}{r}\frac{\partial(ru_r)}{\partial z}+
+      \frac{1}{r}\frac{\partial u_\theta}{\partial \theta}\right) = 0
+      \]
+    </div>
+
+    <p>
+      Assuming that the flow in the pipe is axisymmetric (no \(\theta\) dependance),
+      we set the \(\frac{\partial}{\partial\theta}\) term to zero:
+    </p>
+
+    <div class="math-center">
+      \[
+      \frac{\partial \rho}{\partial z}+ 
+      \rho\left(\frac{\partial u_z}{\partial z}
+      +\frac{1}{r}\frac{\partial(ru_r)}{\partial z}\right) = 0
+      \]
+    </div>
+
+    <p>
+      As blood is nearly incompressible in the arterioles, we set the density
+      time derivative term to zero, which then allows us to divide by \(\rho\)
+      on both sides to remove the constant.
+    </p>
+
+    <div class="math-center">
+      \[
+      \frac{\partial u_z}{\partial z}
+      +\frac{1}{r}\frac{\partial(ru_r)}{\partial z} = 0
+      \]
+    </div>
+
+    <p>
+      Going forward, we will assume that our fluid domain always has a circular cross-sectional 
+      area and multiply by \(2\pi r\), for radial direction r, and then integrate from 0 to \(R\),
+      the outer radius of the fluid domain.
+    </p>
+
+    <div class="math-center">
+      \[
+      \int_0^R2\pi r\frac{\partial u_z}{\partial z}dr
+      +\int_0^R2\pi \frac{\partial(ru_r)}{\partial z}dr = 0
+      \]
+    </div>
+
+    <p> 
+      By noting that the integral of the radial velocity term is equal to 
+      \(\int_0^R2\pi \frac{\partial(ru_r)}{\partial z}dr = 2\pi Ru_r(R)\), where
+      \(u_r(R)\) is the radial velocity at the radial position \(r = R\)we get:
+    </p>
+
+    <div class="math-center">
+      \[
+      \int_0^R2\pi r\frac{\partial u_z}{\partial z}dr
+      +2\pi Ru_r(R) = 0
       \]
     </div>
     
