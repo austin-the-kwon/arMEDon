@@ -449,10 +449,10 @@
     <div class="math-center">
       \[
       \begin{aligned}
-        \tilde{P}(A,z,t) &= P_0(z) + \frac{4}{3}\left(k_1 e^{k_2r_0(z)}+k_3\right)
+        \tilde{P}(A(z,t),z,t) &= P_0(z) + \frac{4}{3}\left(k_1 e^{k_2r_0(z)}+k_3\right)
         \left(1-\sqrt{\frac{A_0(z)}{A(z,t)}}\right)\\
         &\Updownarrow\text{ invert}\\
-        \tilde{A}(P,z,t) &= \frac{A_0(z)}
+        \tilde{A}(P(z,t),z,t) &= \frac{A_0(z)}
         {\left[1-\frac{3\left(P(z,t)-P_0(z)\right)}
         {4\left(k_1 e^{k_2r_0(z)}+k_3\right)}\right]^2}
       \end{aligned}
@@ -473,12 +473,12 @@
         \frac{\tilde{A}(P(z,t),z,t)}{\rho}\frac{\partial P(z,t)}{\partial z}-
         \frac{\tilde{A}(P_0(z),z,t)}{\rho}\frac{\partial P_0(z,t)}{\partial z}+
         \int_{P_0(z)}^{P(z,t)}\frac{1}{\rho}\frac{\partial \tilde{A}(p',z,t)}{\partial z}dp'\\
-        &Updownarrow \text{definition: }A = \tilde{A}(P(z,t),z,t)\text{ and }\tilde{A}(P_0(z),z,t)=A_0(z)\\
+        &\Updownarrow \text{definition: }A = \tilde{A}(P(z,t),z,t)\text{ and }\tilde{A}(P_0(z),z,t)=A_0(z)\\
         \frac{\partial}{\partial z}\int_{P_0(z)}^{P(z,t)}\frac{1}{\rho}\tilde{A}(p',z,t)dp'&=
         \frac{A}{\rho}\frac{\partial P}{\partial z}-
         \frac{A_0(z)}{\rho}\frac{\partial P_0(z)}{\partial z}+
         \int_{P_0(z)}^{P(z,t)}\frac{1}{\rho}\frac{\partial \tilde{A}(p',z,t)}{\partial z}dp'\\
-        &Updownarrow \text{rearrange terms}\\
+        &\Updownarrow \text{rearrange terms}\\
         \frac{A}{\rho}\frac{\partial P}{\partial z}&=
         \frac{\partial}{\partial z}\int_{P_0(z)}^{P(z,t)}\frac{1}{\rho}\tilde{A}(p',z,t)dp'
         +\frac{A_0(z)}{\rho}\frac{\partial P_0(z)}{\partial z}-
