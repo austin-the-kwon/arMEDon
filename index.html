@@ -412,10 +412,10 @@
 
     <div class="math-center">
       \[
-        \frac{\partial Q}{\partial t}
-        +\frac{\partial}{\partial z}\left[(1+\delta)\frac{Q^2}{A}\right]
-        +\frac{A}{\rho}\frac{\partial P}{\partial z}=Af+\frac{NQ}{A}
-        +\nu\frac{\partial^2Q}{\partial z^2}
+        \frac{\partial Q(z,t)}{\partial t}
+        +\frac{\partial}{\partial z}\left[(1+\delta)\frac{Q(z,t)^2}{A(z,t)}\right]
+        +\frac{A(z,t)}{\rho}\frac{\partial P(z,t)}{\partial z}=A(z,t)f(z,t)+\frac{NQ(z,t)}{A(z,t)}
+        +\nu\frac{\partial^2Q(z,t)}{\partial z^2}
       \]
     </div>
 
@@ -473,13 +473,13 @@
         \frac{\tilde{A}(P(z,t),z,t)}{\rho}\frac{\partial P(z,t)}{\partial z}-
         \frac{\tilde{A}(P_0(z),z,t)}{\rho}\frac{\partial P_0(z,t)}{\partial z}+
         \int_{P_0(z)}^{P(z,t)}\frac{1}{\rho}\frac{\partial \tilde{A}(p',z,t)}{\partial z}dp'\\
-        &\Updownarrow \text{definition: }A = \tilde{A}(P(z,t),z,t)\text{ and }\tilde{A}(P_0(z),z,t)=A_0(z)\\
+        &\Updownarrow \text{definition: }A(z,t) = \tilde{A}(P(z,t),z,t)\text{ and }\tilde{A}(P_0(z),z,t)=A_0(z)\\
         \frac{\partial}{\partial z}\int_{P_0(z)}^{P(z,t)}\frac{1}{\rho}\tilde{A}(p',z,t)dp'&=
-        \frac{A}{\rho}\frac{\partial P}{\partial z}-
+        \frac{A(z,t)}{\rho}\frac{\partial P(z,t)}{\partial z}-
         \frac{A_0(z)}{\rho}\frac{\partial P_0(z)}{\partial z}+
         \int_{P_0(z)}^{P(z,t)}\frac{1}{\rho}\frac{\partial \tilde{A}(p',z,t)}{\partial z}dp'\\
         &\Updownarrow \text{rearrange terms}\\
-        \frac{A}{\rho}\frac{\partial P}{\partial z}&=
+        \frac{A(z,t)}{\rho}\frac{\partial P}{\partial z}&=
         \frac{\partial}{\partial z}\int_{P_0(z)}^{P(z,t)}\frac{1}{\rho}\tilde{A}(p',z,t)dp'
         +\frac{A_0(z)}{\rho}\frac{\partial P_0(z)}{\partial z}-
         \int_{P_0(z)}^{P(z,t)}\frac{1}{\rho}\frac{\partial \tilde{A}(p',z,t)}{\partial z}dp'
