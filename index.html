@@ -201,7 +201,7 @@
       (disregarding shear thinning), a crude approximation of the average Reynolds number in an arteriole segment is
       \(\approx\) 0.29 which is well within the laminar regime. With that established, the remainder of this section will derive the 
       weak, quasi-linear form of the 1D wave propagation equation in a flexible tube, starting with the equations of mass conservation and 
-      Navier-Stokes momentum equation in cylindrical coordinates.
+      axial component of the Navier-Stokes momentum equation in cylindrical coordinates.
     </p>
 
     <p>
@@ -284,7 +284,8 @@
 
     <p>
       Going forward, we will assume that our fluid domain always has a circular cross-sectional 
-      area and multiply by \(2\pi r\), for radial direction r, and then integrate from 0 to \(R\),
+      area. After this assumption, we will multiply by \(2\pi r\), 
+      for the radial position r, and then integrate from 0 to \(R\),
       the outer radius of the fluid domain.
     </p>
 
@@ -298,13 +299,47 @@
     <p> 
       By noting that the integral of the radial velocity term is equal to 
       \(\int_0^R2\pi \frac{\partial(ru_r)}{\partial z}dr = 2\pi Ru_r(R)\), where
-      \(u_r(R)\) is the radial velocity at the radial position \(r = R\)we get:
+      \(u_r(R)\) is the radial velocity at the radial position \(r = R\), we get:
     </p>
 
     <div class="math-center">
       \[
       \int_0^R2\pi r\frac{\partial u_z}{\partial z}dr
       +2\pi Ru_r(R) = 0
+      \]
+    </div>
+
+    <p>
+      A very useful tool we will use, which will reappear later, is the Leibniz rule. 
+      A general expression of the Leibniz rule will be outlined for the reader's convenience:
+    </p>
+
+    <div class="math-center">
+      \[
+      \frac{\partial}{\partial z}\int_{a(z)}^{b(z)} f(z,t)dt = 
+      f(z,b(z))\cdot\frac{\partial b(z)}{\partial z}-
+      f(z,a(z))\cdot\frac{\partial a(z)}{\partial z}+
+      \int_{a(z)}^{b(z)} \frac{\partial f(z,t)}{\partial z}dt
+      \]
+    </div>
+
+    <p>
+      After making substitutions with terms in the mass conservation equation 
+      with terms in the general expression of the Leibniz rule and rearranging
+      some of the resulting terms, we arrive at the following identity:
+    </p>
+
+    <div class="math-center">
+      \[
+      \begin{aligned}
+        \frac{\partial}{\partial z}\int_{R}^{0} 2\pi r u_z dr &= 
+        2\pi Ru_z(R)\cdot\frac{\partial R}{\partial z}+
+        \int_{R}^{0} 2\pi r\frac{\partial u_r}{\partial z}dr\\
+        &\Updownarrow \text{ rearrange terms}
+        \int_{R}^{0} 2\pi r\frac{\partial u_r}{\partial z}dr&=
+        \frac{\partial}{\partial z}\int_{R}^{0} 2\pi r u_z dr - 
+        2\pi Ru_z(R)\cdot\frac{\partial R}{\partial z}
+      \end{aligned}
       \]
     </div>
     
